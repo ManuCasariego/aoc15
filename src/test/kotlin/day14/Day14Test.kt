@@ -22,6 +22,7 @@ class Day14Test : DayTest() {
         val expectedSolution = ""
         Assertions.assertEquals(expectedSolution, part2, "Part 2 with example input should equal $expectedSolution")
     }
+
     @Test
     fun part1() {
         solvePart1(day)

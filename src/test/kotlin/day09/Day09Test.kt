@@ -1,7 +1,6 @@
 package day09
 
 import DayTest
-import day09.Day09
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -23,6 +22,7 @@ class Day09Test : DayTest() {
         val expectedSolution = ""
         Assertions.assertEquals(expectedSolution, part2, "Part 2 with example input should equal $expectedSolution")
     }
+
     @Test
     fun part1() {
         solvePart1(day)

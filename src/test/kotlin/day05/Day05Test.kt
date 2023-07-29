@@ -1,7 +1,6 @@
 package day05
 
 import DayTest
-import day05.Day05
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
