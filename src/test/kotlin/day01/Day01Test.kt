@@ -1,6 +1,7 @@
 package day01
 
 import DayTest
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 
@@ -9,15 +10,17 @@ class Day01Test : DayTest() {
     private val day = Day01("01".readInput())
 
     @Test
-    fun part1Example() {
+    fun testSolvePart1WithExampleInput() {
         val part1 = solvePart1(exampleDay)
-        check(part1 == "-1")
+        val expectedSolution = "-1"
+        assertEquals(expectedSolution, part1, "Part 1 with example input should equal $expectedSolution")
     }
 
     @Test
-    fun part2Example() {
+    fun testSolvePart2WithExampleInput() {
         val part2 = solvePart2(exampleDay)
-        check(part2 == "5")
+        val expectedSolution = "5"
+        assertEquals(expectedSolution, part2, "Part 2 with example input should equal $expectedSolution")
     }
 
     @Test
