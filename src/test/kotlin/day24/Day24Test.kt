@@ -5,17 +5,19 @@ import org.junit.jupiter.api.Test
 
 
 class Day24Test : DayTest() {
-    private val exampleDay = Day24("example")
+    private val exampleDay = Day24("24".readTestInput())
     private val day = Day24("24".readInput())
 
     @Test
     fun part1Example() {
-        solvePart1(exampleDay)
+        val part1 = solvePart1(exampleDay)
+        check(part1 == "")
     }
 
     @Test
     fun part2Example() {
-        solvePart2(exampleDay)
+        val part2 = solvePart2(exampleDay)
+        check(part2 == "")
     }
 
     @Test

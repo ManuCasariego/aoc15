@@ -5,21 +5,19 @@ import org.junit.jupiter.api.Test
 
 
 class Day02Test : DayTest() {
-    private val exampleDay = Day02(
-    """
-        2x3x4
-        1x1x10
-    """.trimIndent())
+    private val exampleDay = Day02("02".readTestInput())
     private val day = Day02("02".readInput())
 
     @Test
     fun part1Example() {
-        solvePart1(exampleDay)
+        val part1 = solvePart1(exampleDay)
+        check(part1 == "101")
     }
 
     @Test
     fun part2Example() {
-        solvePart2(exampleDay)
+        val part2 = solvePart2(exampleDay)
+        check(part2 == "48")
     }
 
     @Test
