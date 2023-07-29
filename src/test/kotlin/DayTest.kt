@@ -17,10 +17,10 @@ open class DayTest {
     }
 
     protected fun String.readInput(): String {
-        return File("src/test/kotlin/day${this}/input").readText(Charsets.UTF_8)
+        return File("src/test/kotlin/day${this}/input").readText()
     }
 
     protected fun String.readTestInput(): String {
-        return File("src/test/kotlin/day${this}/testInput").readText(Charsets.UTF_8)
+        return File("src/test/kotlin/day${this}/testInput").readText()
     }
 }
