@@ -3,11 +3,10 @@ package day05
 import Day
 
 class Day05(private val input: String) : Day() {
-    override fun part1(): String {
+    override fun part1(): Int {
         return input.lines().filter {
             isNicePart1(it)
-        }.size.toString()
-
+        }.size
     }
 
     private fun isNicePart1(name: String): Boolean {
@@ -28,10 +27,10 @@ class Day05(private val input: String) : Day() {
         return true
     }
 
-    override fun part2(): String {
+    override fun part2(): Int {
         return input.lines().filter {
             isNicePart2(it)
-        }.size.toString()
+        }.size
     }
 
     data class CharPair(val a: Char, val b: Char)

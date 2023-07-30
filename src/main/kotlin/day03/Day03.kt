@@ -6,7 +6,7 @@ class Day03(private val input: String) : Day() {
 
     data class Point(val x: Int, val y: Int)
 
-    override fun part1(): String {
+    override fun part1(): Int {
         val houses = mutableSetOf<Point>()
         var (currentX, currentY) = listOf(0, 0)
         houses.add(Point(currentX, currentY))
@@ -19,10 +19,10 @@ class Day03(private val input: String) : Day() {
             }
             houses.add(Point(currentX, currentY))
         }
-        return houses.size.toString()
+        return houses.size
     }
 
-    override fun part2(): String {
+    override fun part2(): Int {
         val houses = mutableSetOf<Point>()
         var (currentSantaX, currentSantaY) = listOf(0, 0)
         var (currentDoggyX, currentDoggyY) = listOf(0, 0)
@@ -40,6 +40,6 @@ class Day03(private val input: String) : Day() {
             )
             santaTurn = !santaTurn
         }
-        return houses.size.toString()
+        return houses.size
     }
 }

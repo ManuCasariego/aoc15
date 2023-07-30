@@ -4,13 +4,35 @@ import Day
 import kotlin.math.max
 
 class Day06(private val input: String) : Day() {
+
+    override fun part1(): Int {
+        val (sizeX, sizeY) = listOf(1000, 1000)
+        val board = Board(Array(sizeX) { Array(sizeY) { false } })
+        input.lines().map {
+            Instruction.builder(it)
+        }.forEach {
+            board.execute(it)
+        }
+        return board.howManyLightsOn()
+
+    }
+
+    override fun part2(): Int {
+        val (sizeX, sizeY) = listOf(1000, 1000)
+        val board = BoardPart2(Array(sizeX) { Array(sizeY) { 0 } })
+        input.lines().map {
+            Instruction.builder(it)
+        }.forEach {
+            board.execute(it)
+        }
+        return board.howManyLightsOn()
+    }
     data class Coordinate(val x: Int, val y: Int) {
         companion object {
             fun builder(line: String): Coordinate {
                 val split = line.split(",")
                 return Coordinate(split[0].toInt(), split[1].toInt())
             }
-
         }
     }
 
@@ -37,14 +59,14 @@ class Day06(private val input: String) : Day() {
             }
         }
 
-        fun howManyLightsOn(): String {
+        fun howManyLightsOn(): Int {
             var count = 0
             for (array in board) {
                 for (boolean in array) {
                     if (boolean) count++
                 }
             }
-            return count.toString()
+            return count
         }
     }
 
@@ -71,14 +93,14 @@ class Day06(private val input: String) : Day() {
             }
         }
 
-        fun howManyLightsOn(): String {
+        fun howManyLightsOn(): Int {
             var count = 0
             for (array in board) {
                 for (int in array) {
                     count += int
                 }
             }
-            return count.toString()
+            return count
         }
     }
 
@@ -98,29 +120,5 @@ class Day06(private val input: String) : Day() {
                 }
             }
         }
-
-    }
-
-    override fun part1(): String {
-        val (sizeX, sizeY) = listOf(1000, 1000)
-        val board = Board(Array(sizeX) { Array(sizeY) { false } })
-        input.lines().map {
-            Instruction.builder(it)
-        }.forEach {
-            board.execute(it)
-        }
-        return board.howManyLightsOn()
-
-    }
-
-    override fun part2(): String {
-        val (sizeX, sizeY) = listOf(1000, 1000)
-        val board = BoardPart2(Array(sizeX) { Array(sizeY) { 0 } })
-        input.lines().map {
-            Instruction.builder(it)
-        }.forEach {
-            board.execute(it)
-        }
-        return board.howManyLightsOn()
     }
 }

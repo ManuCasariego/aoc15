@@ -4,7 +4,7 @@ import Day
 
 class Day09(private val input: String) : Day() {
 
-    override fun part1(): String {
+    override fun part1(): Int {
         cleanUp()
         // dp
         // getting the distances and cities
@@ -18,7 +18,22 @@ class Day09(private val input: String) : Day() {
         for (city in cities) {
             minimumDistance = kotlin.math.min(minimumDistance, goEveryWayMinimumPossible(city, mutableSetOf(city)))
         }
-        return minimumDistance.toString()
+        return minimumDistance
+    }
+
+    override fun part2(): Int {
+        cleanUp()
+        input.lines().forEach {
+            val split = it.split(" ")
+            distances.add(Distance(split[0], split[2], split[4].toInt()))
+            cities.add(split[0])
+            cities.add(split[2])
+        }
+        var maximumDistance = 0
+        for (city in cities) {
+            maximumDistance = kotlin.math.max(maximumDistance, goEveryWayMaximumPossible(city, mutableSetOf(city)))
+        }
+        return maximumDistance
     }
 
     private fun cleanUp() {
@@ -78,21 +93,4 @@ class Day09(private val input: String) : Day() {
         }
         return Integer.MAX_VALUE
     }
-
-    override fun part2(): String {
-        cleanUp()
-        input.lines().forEach {
-            val split = it.split(" ")
-            distances.add(Distance(split[0], split[2], split[4].toInt()))
-            cities.add(split[0])
-            cities.add(split[2])
-        }
-        var maximumDistance = 0
-        for (city in cities) {
-            maximumDistance = kotlin.math.max(maximumDistance, goEveryWayMaximumPossible(city, mutableSetOf(city)))
-        }
-        return maximumDistance.toString()
-    }
-
-
 }

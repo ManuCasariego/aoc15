@@ -4,7 +4,7 @@ import Day
 import kotlin.math.min
 
 class Day02(private val input: String) : Day() {
-    override fun part1(): String {
+    override fun part1(): Int {
         var total = 0
         for (line in input.lines()) {
             val (l, w, h) = line.split('x').map { it.toInt() }
@@ -13,10 +13,10 @@ class Day02(private val input: String) : Day() {
             val third = 2 * w * h
             total += min(min(first, second), third) / 2 + first + second + third
         }
-        return total.toString()
+        return total
     }
 
-    override fun part2(): String {
+    override fun part2(): Int {
 
         var total = 0
         for (line in input.lines()) {
@@ -27,6 +27,6 @@ class Day02(private val input: String) : Day() {
             val third = 2 * (w + h)
             total += bow + min(min(first, second), third)
         }
-        return total.toString()
+        return total
     }
 }

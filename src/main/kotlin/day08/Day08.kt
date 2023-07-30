@@ -3,7 +3,7 @@ package day08
 import Day
 
 class Day08(private val input: String) : Day() {
-    override fun part1(): String {
+    override fun part1(): Int {
         var totalChars = 0
         var totalEscapedChars = 0
         input.lines().forEach {
@@ -12,10 +12,10 @@ class Day08(private val input: String) : Day() {
             escapedString = escapedString.replace("\\\\x([0-9|a-f]){2}".toRegex(), "n")
             totalEscapedChars += escapedString.length
         }
-        return (totalChars - totalEscapedChars).toString()
+        return (totalChars - totalEscapedChars)
     }
 
-    override fun part2(): String {
+    override fun part2(): Int {
         var totalChars = 0
         var totalEscapedChars = 0
         input.lines().forEach {
@@ -23,6 +23,6 @@ class Day08(private val input: String) : Day() {
             val escapedString = it.replace(regex = Regex("\\\\"), replacement =  "oo").replace(regex = "\\\"".toRegex(), replacement =  "oo")
             totalEscapedChars += escapedString.length + 2
         }
-        return (totalEscapedChars - totalChars).toString()
+        return (totalEscapedChars - totalChars)
     }
 }

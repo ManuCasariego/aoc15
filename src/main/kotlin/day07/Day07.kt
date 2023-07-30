@@ -89,7 +89,7 @@ class Day07(private val input: String) : Day() {
     }
 
 
-    override fun part1(): String {
+    override fun part1(): Int {
         var signalMap = mutableMapOf<String, Signal>()
         val instructionMap = mutableMapOf<String, String>()
         input.lines().forEach {
@@ -97,7 +97,7 @@ class Day07(private val input: String) : Day() {
             instructionMap[split.last()] = it
         }
         populateMapForSignal(signalMap, "a", instructionMap)
-        return signalMap["a"]!!.toInt().toString()
+        return signalMap["a"]!!.toInt()
     }
 
 
@@ -170,7 +170,7 @@ class Day07(private val input: String) : Day() {
         return null
     }
 
-    override fun part2(): String {
+    override fun part2(): Int {
         var signalMap = mutableMapOf<String, Signal>()
         val instructionMap = mutableMapOf<String, String>()
         input.lines().forEach {
@@ -184,6 +184,6 @@ class Day07(private val input: String) : Day() {
         // setting to b the old value of a
         signalMap["b"] = Signal.builder(firstValueOfA)
         populateMapForSignal(signalMap, "a", instructionMap)
-        return signalMap["a"]!!.toInt().toString()
+        return signalMap["a"]!!.toInt()
     }
 }

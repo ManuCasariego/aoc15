@@ -3,11 +3,11 @@ package day11
 import Day
 
 class Day11(private val input: String) : Day() {
-    override fun part1(): String {
+    override fun part1(): Int {
         TODO("Not yet implemented")
     }
 
-    override fun part2(): String {
+    override fun part2(): Int {
         TODO("Not yet implemented")
     }
 }

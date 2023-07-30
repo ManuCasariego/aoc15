@@ -3,7 +3,7 @@ package day01
 import Day
 
 class Day01(private val input: String) : Day() {
-    override fun part1(): String {
+    override fun part1(): Int {
         var level = 0
         input.forEach {
             if (it == '(') {
@@ -11,10 +11,10 @@ class Day01(private val input: String) : Day() {
             } else if (it == ')')
                 level--
         }
-        return level.toString()
+        return level
     }
 
-    override fun part2(): String {
+    override fun part2(): Int{
         var position = 1
         var level = 0
         input.forEach { char ->
@@ -24,10 +24,10 @@ class Day01(private val input: String) : Day() {
                 level--
             }
             if (level == -1) {
-                return position.toString()
+                return position
             }
             position++
         }
-        return "Not found"
+        return -1
     }
 }
