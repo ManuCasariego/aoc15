@@ -4,10 +4,64 @@ import Day
 
 class Day12(private val input: String) : Day() {
     override fun part1(): Int {
-        TODO("Not yet implemented")
+        return getSumFromJson(input)
     }
 
     override fun part2(): Int {
-        TODO("Not yet implemented")
+        var variableInput = input
+        while (variableInput.contains(":\"red\"")) {
+            val r = variableInput.indexOf(":\"red\"")
+            // I need to find an opening key going left
+            // and a closing key going right
+            // every time I find the other one the I will need to skip one more
+            val left = findOpeningKeyLeft(variableInput, r)
+            val right = findClosingKeyRight(variableInput, r)
+            variableInput = variableInput.substring(0, left) + variableInput.substring(right + 1, variableInput.length)
+        }
+        return getSumFromJson(variableInput)
+    }
+
+    private fun getSumFromJson(input: String): Int {
+        val regex = "(-)?\\d+".toRegex()
+        val matchResults = regex.findAll(input)
+        var count = 0
+        for (match in matchResults) {
+            count += match.value.toInt()
+        }
+        return count
+    }
+
+    private fun findOpeningKeyLeft(variableInput: String, r: Int): Int {
+        var leftIndex = r - 1
+        var jokers = 0
+        while (true) {
+            if (variableInput[leftIndex] == '{') {
+                // found it
+                if (jokers == 0) {
+                    /// truly found it
+                    return leftIndex
+                } else jokers--
+            } else if (variableInput[leftIndex] == '}') {
+                jokers++
+            }
+            leftIndex--
+        }
+    }
+
+    private fun findClosingKeyRight(variableInput: String, r: Int): Int {
+        var rightIndex = r + 1
+        var jokers = 0
+        while (true) {
+            if (variableInput[rightIndex] == '}') {
+                // found it
+                if (jokers == 0) {
+                    /// truly found it
+                    return rightIndex
+                } else jokers--
+            } else if (variableInput[rightIndex] == '{') {
+                jokers++
+            }
+            rightIndex++
+        }
     }
 }
