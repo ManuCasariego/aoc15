@@ -1,6 +1,7 @@
 package day12
 
 import Day
+import kotlin.streams.asStream
 
 class Day12(private val input: String) : Day() {
     override fun part1(): Int {
@@ -24,11 +25,7 @@ class Day12(private val input: String) : Day() {
     private fun getSumFromJson(input: String): Int {
         val regex = "(-)?\\d+".toRegex()
         val matchResults = regex.findAll(input)
-        var count = 0
-        for (match in matchResults) {
-            count += match.value.toInt()
-        }
-        return count
+        return matchResults.asStream().mapToInt { it.value.toInt() }.sum()
     }
 
     private fun findOpeningKeyLeft(variableInput: String, r: Int): Int {
