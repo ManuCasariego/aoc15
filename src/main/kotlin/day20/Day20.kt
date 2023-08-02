@@ -1,6 +1,7 @@
 package day20
 
 import Day
+import kotlin.math.sqrt
 
 class Day20(private val input: String) : Day() {
     override fun part1(): Int {
@@ -26,20 +27,19 @@ class Day20(private val input: String) : Day() {
     }
 
     private fun getDivisors(n: Int): MutableSet<Int> {
-        val divisors = mutableSetOf(n, 1)
-        for (i in 2..n / 2) {
-            if (n % i == 0) divisors.add(i)
+        val divisors = mutableSetOf<Int>()
+        for (i in 1..sqrt(n.toDouble()).toInt()) {
+            if (n % i == 0) divisors.addAll(listOf(i, n / i))
         }
         return divisors
     }
-
 
     private fun getDivisorsPart2(n: Int): MutableSet<Int> {
-        val divisors = mutableSetOf(n)
-
-        for (i in n / 50..n / 2) {
-            if (n % i == 0 && i * 50 >= n) divisors.add(i)
+        val divisors = mutableSetOf<Int>()
+        for (i in 1..sqrt(n.toDouble()).toInt()) {
+            if (n % i == 0) divisors.addAll(listOf(i, n / i).filter { it * 50 >= n })
         }
         return divisors
     }
+
 }
