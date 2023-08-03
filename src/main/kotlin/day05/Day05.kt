@@ -4,20 +4,17 @@ import Day
 
 class Day05(private val input: String) : Day() {
     override fun part1(): Int {
-        return input.lines().filter {
-            isNicePart1(it)
-        }.size
+        return input.lines().filter(::isNicePart1).size
     }
 
     private fun isNicePart1(name: String): Boolean {
-        val chars = name.toCharArray()
         // less than three vowels returns false
         if (name.filter { ((it == 'a') or (it == 'e') or (it == 'i') or (it == 'o') or (it == 'u')) }.length < 3) return false
 
         // at least one letter that appears twice in a row
         var condition = false
         for (i in 0..name.length - 2) {
-            if (chars[i] == chars[i + 1]) condition = true
+            if (name[i] == name[i + 1]) condition = true
         }
         if (!condition) return false
 
@@ -28,22 +25,19 @@ class Day05(private val input: String) : Day() {
     }
 
     override fun part2(): Int {
-        return input.lines().filter {
-            isNicePart2(it)
-        }.size
+        return input.lines().filter(::isNicePart2).size
     }
 
     data class CharPair(val a: Char, val b: Char)
 
     private fun isNicePart2(name: String): Boolean {
-        val chars = name.toCharArray()
         if (name.length < 3) return false
 
         val charMap = mutableMapOf<CharPair, Int>()
         // It contains a pair of any two letters that appears at least twice in the string without overlapping, like xyxy (xy) or aabcdefgaa (aa), but not like aaa (aa, but it overlaps).
         var condition = false
         for (i in 0..name.length - 2) {
-            val charPair = CharPair(chars[i], chars[i + 1])
+            val charPair = CharPair(name[i], name[i + 1])
             if (charMap.contains(charPair)) {
                 if (charMap[charPair]!! < i - 1) condition = true
             } else {
@@ -54,7 +48,7 @@ class Day05(private val input: String) : Day() {
 
         // It contains at least one letter which repeats with exactly one letter between them, like xyx, abcdefeghi (efe), or even aaa.
         for (i in 0..name.length - 3) {
-            if (chars[i] == chars[i + 2]) return true
+            if (name[i] == name[i + 2]) return true
         }
         return false
     }

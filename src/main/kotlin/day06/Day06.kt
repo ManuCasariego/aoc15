@@ -8,23 +8,14 @@ class Day06(private val input: String) : Day() {
     override fun part1(): Int {
         val (sizeX, sizeY) = listOf(1000, 1000)
         val board = Board(Array(sizeX) { Array(sizeY) { false } })
-        input.lines().map {
-            Instruction.builder(it)
-        }.forEach {
-            board.execute(it)
-        }
+        input.lines().map(Instruction.Companion::parse).forEach(board::execute)
         return board.howManyLightsOn()
-
     }
 
     override fun part2(): Int {
         val (sizeX, sizeY) = listOf(1000, 1000)
         val board = BoardPart2(Array(sizeX) { Array(sizeY) { 0 } })
-        input.lines().map {
-            Instruction.builder(it)
-        }.forEach {
-            board.execute(it)
-        }
+        input.lines().map(Instruction.Companion::parse).forEach(board::execute)
         return board.howManyLightsOn()
     }
 
@@ -47,7 +38,6 @@ class Day06(private val input: String) : Day() {
         }
 
         private fun toggle(a: Coordinate, b: Coordinate) {
-            // interact with board
             for (iterableX in a.x..b.x) for (iterableY in a.y..b.y) board[iterableX][iterableY] =
                 !board[iterableX][iterableY]
         }
@@ -61,19 +51,13 @@ class Day06(private val input: String) : Day() {
         }
 
         fun howManyLightsOn(): Int {
-            var count = 0
-            for (array in board) {
-                for (boolean in array) {
-                    if (boolean) count++
-                }
-            }
-            return count
+            return board.flatten().count { it }
         }
     }
 
     data class BoardPart2(val board: Array<Array<Int>>) {
         private fun turnOn(a: Coordinate, b: Coordinate) {
-            for (iterableX in a.x..b.x) for (iterableY in a.y..b.y) board[iterableX][iterableY]++
+            for (iterableX in a.x..b.x) for (iterableY in a.y..b.y) board[iterableX][iterableY] += 1
         }
 
         private fun turnOff(a: Coordinate, b: Coordinate) {
@@ -82,7 +66,6 @@ class Day06(private val input: String) : Day() {
         }
 
         private fun toggle(a: Coordinate, b: Coordinate) {
-            // interact with board
             for (iterableX in a.x..b.x) for (iterableY in a.y..b.y) board[iterableX][iterableY] += 2
         }
 
@@ -95,24 +78,18 @@ class Day06(private val input: String) : Day() {
         }
 
         fun howManyLightsOn(): Int {
-            var count = 0
-            for (array in board) {
-                for (int in array) {
-                    count += int
-                }
-            }
-            return count
+            return board.flatten().sum()
         }
     }
 
     data class Instruction(val operation: String, val a: Coordinate, val b: Coordinate) {
         companion object {
-            fun builder(line: String): Instruction {
+            fun parse(line: String): Instruction {
                 val split = line.split(" ")
-                return if (line.contains("turn on")) {
+                return if (line.startsWith("turn on")) {
                     // turn on operation
                     Instruction("turn on", Coordinate.builder(split[2]), Coordinate.builder(split[4]))
-                } else if (line.contains("turn off")) {
+                } else if (line.startsWith("turn off")) {
                     // turn off operation
                     Instruction("turn off", Coordinate.builder(split[2]), Coordinate.builder(split[4]))
                 } else {
@@ -122,4 +99,5 @@ class Day06(private val input: String) : Day() {
             }
         }
     }
+
 }
