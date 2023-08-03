@@ -58,11 +58,11 @@ class Day13(private val input: String) : Day() {
 
     data class Relationship(val person1: String, val person2: String, val happiness: Int) {
         companion object {
-            fun builder(line: String) : Relationship {
+            fun builder(line: String): Relationship {
                 val split = line.split(" ")
                 val person1 = split[0]
                 val person2 = split[10].replace(".", "")
-                val happiness = if (split[2] =="gain") split[3].toInt() else -split[3].toInt()
+                val happiness = if (split[2] == "gain") split[3].toInt() else -split[3].toInt()
                 return Relationship(person1, person2, happiness)
             }
         }

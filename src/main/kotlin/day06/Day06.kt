@@ -27,6 +27,7 @@ class Day06(private val input: String) : Day() {
         }
         return board.howManyLightsOn()
     }
+
     data class Coordinate(val x: Int, val y: Int) {
         companion object {
             fun builder(line: String): Coordinate {

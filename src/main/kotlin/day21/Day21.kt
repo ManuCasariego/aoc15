@@ -22,7 +22,6 @@ class Day21(private val input: String) : Day() {
             bossHealth -= kotlin.math.max((player.damage - boss.armor), 1)
             if (bossHealth <= 0) return true
             playerHealth -= kotlin.math.max((boss.damage - player.armor), 1)
-
         }
         return false
     }
@@ -31,19 +30,10 @@ class Day21(private val input: String) : Day() {
         val ringPermutations = mutableSetOf<MutableSet<Item>>()
         // no rings
         ringPermutations.add(mutableSetOf())
-        // 1 ring
-        for (ring in rings) {
-            ringPermutations.add(mutableSetOf(ring))
-        }
-        // 2 rings
-        for (ring1 in rings) {
-            for (ring2 in rings.minus(ring1)) {
-                ringPermutations.add(mutableSetOf(ring1, ring2))
-            }
-        }
+        // 1|2 rings
+        rings.forEach { ring1 -> rings.forEach { ring2 -> ringPermutations.add(mutableSetOf(ring1, ring2)) } }
         return ringPermutations
     }
-
 
     private fun buildStateMap(): MutableMap<Set<Item>, Boolean> {
         val stateMap = mutableMapOf<Set<Item>, Boolean>()
@@ -105,7 +95,7 @@ class Day21(private val input: String) : Day() {
 
     data class Character(val hitPoints: Int, val damage: Int, val armor: Int) {
 
-        fun applyItem(item: Item): Character {
+        private fun applyItem(item: Item): Character {
             return Character(hitPoints, damage + item.damage, armor + item.armor)
         }
 

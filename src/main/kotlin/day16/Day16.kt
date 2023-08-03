@@ -64,14 +64,17 @@ class Day16(private val input: String) : Day() {
             if (!things.contains(thing)) return true
             return things[thing]!! == quantity
         }
+
         fun containsGreater(thing: String, quantity: Int): Boolean {
             if (!things.contains(thing)) return true
             return things[thing]!! > quantity
         }
+
         fun containsLess(thing: String, quantity: Int): Boolean {
             if (!things.contains(thing)) return true
             return things[thing]!! < quantity
         }
+
         companion object {
             fun builder(line: String): Sue {
                 //Sue 19: trees: 3, perfumes: 0, goldfish: 6

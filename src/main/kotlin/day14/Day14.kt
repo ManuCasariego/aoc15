@@ -4,17 +4,17 @@ import Day
 
 class Day14(private val input: String) : Day() {
     override fun part1(): Int {
-      val reindeers = input.lines().map{Reindeer.builder(it)}
-      var maxDistance = 0
-      val distanceAfter = 2503
-      for (reindeer in reindeers) {
-          maxDistance = kotlin.math.max(maxDistance, reindeer.distanceAfter(distanceAfter))
-      }
-      return maxDistance
+        val reindeers = input.lines().map { Reindeer.builder(it) }
+        var maxDistance = 0
+        val distanceAfter = 2503
+        for (reindeer in reindeers) {
+            maxDistance = kotlin.math.max(maxDistance, reindeer.distanceAfter(distanceAfter))
+        }
+        return maxDistance
     }
 
     override fun part2(): Int {
-        val reindeers = input.lines().map{Reindeer.builder(it)}
+        val reindeers = input.lines().map { Reindeer.builder(it) }
         val distanceAfter = 2503
         val points = mutableMapOf<String, Int>()
         for (reindeer in reindeers) {
@@ -50,7 +50,7 @@ class Day14(private val input: String) : Day() {
         }
 
         companion object {
-            fun builder(line : String): Reindeer {
+            fun builder(line: String): Reindeer {
                 val split = line.split(" ")
                 return Reindeer(split[0], split[3].toInt(), split[6].toInt(), split[13].toInt())
             }

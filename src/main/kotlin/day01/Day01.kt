@@ -4,17 +4,10 @@ import Day
 
 class Day01(private val input: String) : Day() {
     override fun part1(): Int {
-        var level = 0
-        input.forEach {
-            if (it == '(') {
-                level++
-            } else if (it == ')')
-                level--
-        }
-        return level
+        return input.map { if (it == '(') 1 else if (it == ')') -1 else 0 }.sum()
     }
 
-    override fun part2(): Int{
+    override fun part2(): Int {
         var position = 1
         var level = 0
         input.forEach { char ->
