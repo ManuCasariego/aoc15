@@ -7,6 +7,99 @@ import kotlin.math.abs
 import kotlin.math.pow
 
 class Day07(private val input: String) : Day() {
+
+    override fun part1(): Int {
+        return buildMapForSignalAndReturnA(input)
+    }
+
+    override fun part2(): Int {
+        val firstA = buildMapForSignalAndReturnA(input)
+        return buildMapForSignalAndReturnA(input, initialValueForB = firstA)
+    }
+
+    private fun buildMapForSignalAndReturnA(
+        input: String,
+        initialValueForB: Int? = null,
+        signal: String = "a",
+    ): Int {
+        val signalMap = mutableMapOf<String, Signal>()
+        if (initialValueForB != null) signalMap["b"] = Signal.builder(initialValueForB)
+        val instructionMap = buildInstructionMap(input)
+        val instructionStack = Stack<String>()
+        instructionStack.push(instructionMap[signal])
+        while (instructionStack.isNotEmpty()) {
+            val instruction = instructionStack.peek()
+            val splitInstruction = instruction.split(" ")
+            // evaluate
+            if (instruction.contains("OR") || instruction.contains("AND")) {
+                val a = getSignal(signalMap, splitInstruction[0])
+                val b = getSignal(signalMap, splitInstruction[2])
+                if (a == null) {
+                    instructionStack.push(instructionMap[splitInstruction[0]])
+                }
+                if (b == null) {
+                    instructionStack.push(instructionMap[splitInstruction[2]])
+                }
+                if (a != null && b != null) {
+                    if (instruction.contains("OR")) signalMap[splitInstruction[4]] = a.or(b)
+                    else signalMap[splitInstruction[4]] = a.and(b)
+                    instructionStack.pop()
+                }
+            } else if (instruction.contains("NOT")) {
+                val a = getSignal(signalMap, splitInstruction[1])
+                if (a == null) {
+                    instructionStack.push(instructionMap[splitInstruction[1]])
+                }
+                if (a != null) {
+                    signalMap[splitInstruction[3]] = a.not()
+                    instructionStack.pop()
+                }
+            } else if (instruction.contains("SHIFT")) {
+                val a = getSignal(signalMap, splitInstruction[0])
+                if (a == null) {
+                    instructionStack.push(instructionMap[splitInstruction[0]])
+                }
+                if (a != null) {
+                    if (instruction.contains("LSHIFT")) signalMap[splitInstruction[4]] =
+                        a.lShift(splitInstruction[2].toInt())
+                    else signalMap[splitInstruction[4]] = a.rShift(splitInstruction[2].toInt())
+                    instructionStack.pop()
+                }
+            } else {
+                // set operation
+                val a = getSignal(signalMap, splitInstruction[0])
+                if (a == null) {
+                    instructionStack.push(instructionMap[splitInstruction[0]])
+                }
+                if (a != null) {
+                    signalMap[splitInstruction[2]] = a.copy()
+                    instructionStack.pop()
+                }
+            }
+        }
+        return signalMap["a"]!!.toInt()
+    }
+
+    private fun buildInstructionMap(input: String): MutableMap<String, String> {
+        val instructionMap = mutableMapOf<String, String>()
+        input.lines().forEach {
+            val split = it.split(" ")
+            instructionMap[split.last()] = it
+        }
+        return instructionMap
+    }
+
+
+    private fun getSignal(map: Map<String, Signal>, string: String): Signal? {
+        // three options:
+        // A. it's already on the map
+        if (map.containsKey(string)) return map[string]!!
+        // B. it's a numeric value
+        if (string[0].isDigit()) return Signal.builder(string.toInt())
+        // C. the instruction should be blocked as we don't have this value yet
+        return null
+    }
+
     data class Signal(val array: Array<Boolean>) {
         companion object {
             fun builder(): Signal {
@@ -63,7 +156,6 @@ class Day07(private val input: String) : Day() {
 
         private fun lShift(): Signal {
             val result = builder()
-
             for (i in 0..<array.size - 1) {
                 result.array[i] = this.array[i + 1]
             }
@@ -88,102 +180,4 @@ class Day07(private val input: String) : Day() {
         }
     }
 
-
-    override fun part1(): Int {
-        var signalMap = mutableMapOf<String, Signal>()
-        val instructionMap = mutableMapOf<String, String>()
-        input.lines().forEach {
-            val split = it.split(" ")
-            instructionMap[split.last()] = it
-        }
-        populateMapForSignal(signalMap, "a", instructionMap)
-        return signalMap["a"]!!.toInt()
-    }
-
-
-    private fun populateMapForSignal(
-        signalMap: MutableMap<String, Signal>,
-        signal: String,
-        instructionMap: Map<String, String>
-    ) {
-        val instructionStack = Stack<String>()
-        instructionStack.push(instructionMap[signal])
-        while (instructionStack.isNotEmpty()) {
-            val instruction = instructionStack.peek()
-            val splitInstruction = instruction.split(" ")
-            // evaluate
-            if (instruction.contains("OR") || instruction.contains("AND")) {
-                val a = getSignal(signalMap, splitInstruction[0])
-                val b = getSignal(signalMap, splitInstruction[2])
-                if (a == null) {
-                    instructionStack.push(instructionMap[splitInstruction[0]])
-                }
-                if (b == null) {
-                    instructionStack.push(instructionMap[splitInstruction[2]])
-                }
-                if (a != null && b != null) {
-                    if (instruction.contains("OR")) signalMap[splitInstruction[4]] = a.or(b)
-                    else signalMap[splitInstruction[4]] = a.and(b)
-                    instructionStack.pop()
-                }
-            } else if (instruction.contains("NOT")) {
-                val a = getSignal(signalMap, splitInstruction[1])
-                if (a == null) {
-                    instructionStack.push(instructionMap[splitInstruction[1]])
-                }
-                if (a != null) {
-                    signalMap[splitInstruction[3]] = a.not()
-                    instructionStack.pop()
-                }
-            } else if (instruction.contains("SHIFT")) {
-                val a = getSignal(signalMap, splitInstruction[0])
-                if (a == null) {
-                    instructionStack.push(instructionMap[splitInstruction[0]])
-                }
-                if (a != null) {
-                    if (instruction.contains("LSHIFT")) signalMap[splitInstruction[4]] =
-                        a.lShift(splitInstruction[2].toInt())
-                    else signalMap[splitInstruction[4]] = a.rShift(splitInstruction[2].toInt())
-                    instructionStack.pop()
-                }
-            } else {
-                // set operation
-                val a = getSignal(signalMap, splitInstruction[0])
-                if (a == null) {
-                    instructionStack.push(instructionMap[splitInstruction[0]])
-                }
-                if (a != null) {
-                    signalMap[splitInstruction[2]] = a.copy()
-                    instructionStack.pop()
-                }
-            }
-        }
-    }
-
-    private fun getSignal(map: Map<String, Signal>, string: String): Signal? {
-        // three options:
-        // A. it's already on the map
-        if (map.containsKey(string)) return map[string]!!
-        // B. it's a numeric value
-        if (string[0].isDigit()) return Signal.builder(string.toInt())
-        // C. the instruction should be blocked as we don't have this value yet
-        return null
-    }
-
-    override fun part2(): Int {
-        var signalMap = mutableMapOf<String, Signal>()
-        val instructionMap = mutableMapOf<String, String>()
-        input.lines().forEach {
-            val split = it.split(" ")
-            instructionMap[split.last()] = it
-        }
-        populateMapForSignal(signalMap, "a", instructionMap)
-        val firstValueOfA = signalMap["a"]!!.toInt()
-        // resetting the map
-        signalMap = mutableMapOf<String, Signal>()
-        // setting to b the old value of a
-        signalMap["b"] = Signal.builder(firstValueOfA)
-        populateMapForSignal(signalMap, "a", instructionMap)
-        return signalMap["a"]!!.toInt()
-    }
 }
