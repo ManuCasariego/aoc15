@@ -5,11 +5,11 @@ import Day
 class Day21(private val input: String) : Day() {
 
     override fun part1(): Int {
-        return buildStateMap().filter { it.value }.map { it.key.sumOf { item -> item.cost } }.min()
+        return buildStateMap().filter { it.value }.minOf { it.key.sumOf { item -> item.cost } }
     }
 
     override fun part2(): Int {
-        return buildStateMap().filterNot { it.value }.map { it.key.sumOf { item -> item.cost } }.max()
+        return buildStateMap().filterNot { it.value }.maxOf { it.key.sumOf { item -> item.cost } }
     }
 
 
