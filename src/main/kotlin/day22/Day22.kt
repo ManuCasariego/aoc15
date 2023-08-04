@@ -55,20 +55,10 @@ class Day22(private val input: String) : Day() {
         var variableRechargeTimer = rechargeTimer
         var variablePoisonTimer = poisonTimer
         var variableShieldTimer = shieldTimer
-
-        // start of turn effects
-        if (variableRechargeTimer > 0) {
-            player.mana += 101
-            variableRechargeTimer--
-        }
-        if (variableShieldTimer > 0) {
-            variableShieldTimer--
-            if (variableShieldTimer == 0) player.armor -= 7
-        }
-        if (variablePoisonTimer > 0) {
-            variablePoisonTimer--
-            boss.hitPoints -= 3
-        }
+        var triple = startOfTurnEffects(variableRechargeTimer, player, variableShieldTimer, variablePoisonTimer, boss)
+        variablePoisonTimer = triple.first
+        variableRechargeTimer = triple.second
+        variableShieldTimer = triple.third
 
         if (lose1HealthPerTurn) player.hitPoints -= 1
         if (player.hitPoints <= 0) return
@@ -98,19 +88,10 @@ class Day22(private val input: String) : Day() {
         }
         player.mana -= action.manaCost
 
-        // start of turn effects
-        if (variableRechargeTimer > 0) {
-            player.mana += 101
-            variableRechargeTimer--
-        }
-        if (variableShieldTimer > 0) {
-            variableShieldTimer--
-            if (variableShieldTimer == 0) player.armor = 0
-        }
-        if (variablePoisonTimer > 0) {
-            variablePoisonTimer--
-            boss.hitPoints -= 3
-        }
+        triple = startOfTurnEffects(variableRechargeTimer, player, variableShieldTimer, variablePoisonTimer, boss)
+        variablePoisonTimer = triple.first
+        variableRechargeTimer = triple.second
+        variableShieldTimer = triple.third
 
         if (boss.hitPoints <= 0) {
             stateMap[manaUsed + action.manaCost] = true
@@ -127,6 +108,32 @@ class Day22(private val input: String) : Day() {
             variablePoisonTimer,
             lose1HealthPerTurn
         )
+    }
+
+    private fun startOfTurnEffects(
+        rechargeTimer: Int,
+        player: Character,
+        shieldTimer: Int,
+        poisonTimer: Int,
+        boss: Character
+    ): Triple<Int, Int, Int> {
+        // start of turn effects
+        var variableRechargeTimer = rechargeTimer
+        var variableShieldTimer = shieldTimer
+        var variablePoisonTimer = poisonTimer
+        if (variableRechargeTimer > 0) {
+            player.mana += 101
+            variableRechargeTimer--
+        }
+        if (variableShieldTimer > 0) {
+            variableShieldTimer--
+            if (variableShieldTimer == 0) player.armor -= 7
+        }
+        if (variablePoisonTimer > 0) {
+            variablePoisonTimer--
+            boss.hitPoints -= 3
+        }
+        return Triple(variablePoisonTimer, variableRechargeTimer, variableShieldTimer)
     }
 
     data class Character(var hitPoints: Int, var damage: Int, var armor: Int, var mana: Int) {
