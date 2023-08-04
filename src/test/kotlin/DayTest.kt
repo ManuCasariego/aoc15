@@ -15,12 +15,4 @@ open class DayTest {
         println("Part 2: $part2 in ${System.currentTimeMillis() - start}ms")
         return part2
     }
-
-    protected fun String.readInput(): String {
-        return File("src/test/kotlin/day${this}/input").readText()
-    }
-
-    protected fun String.readTestInput(): String {
-        return File("src/test/kotlin/day${this}/testInput").readText()
-    }
 }

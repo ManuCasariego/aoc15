@@ -2,14 +2,14 @@ package day15
 
 import Day
 
-class Day15(private val input: String) : Day() {
+class Day15 : Day(15) {
     override fun part1(): Int {
-        val ingredients = input.lines().map { Ingredient.builder(it) }
+        val ingredients = inputLines.map { Ingredient.builder(it) }
         return getBestCookie(ingredients)
     }
 
     override fun part2(): Int {
-        val ingredients = input.lines().map { Ingredient.builder(it) }
+        val ingredients = inputLines.map { Ingredient.builder(it) }
         return getBestCookie(ingredients, caloriesExpected = 500)
     }
 

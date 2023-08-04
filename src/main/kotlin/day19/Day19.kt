@@ -3,19 +3,17 @@ package day19
 import Day
 import java.util.Stack
 
-class Day19(private val input: String) : Day() {
+class Day19 : Day(19) {
     override fun part1(): Int {
-        val replacements = input.split("\n\n")[0].lines().map { Replacement.parse(it) }
-        val molecule = input.split("\n\n")[1]
+        val replacements = inputString.split("\n\n")[0].lines().map { Replacement.parse(it) }
+        val molecule = inputString.split("\n\n")[1]
 
         return replacements.map { applyReplacement(it, molecule) }.flatten().toSet().size
     }
 
     override fun part2(): Int {
-        return alternativePart2()
-
-        val reverseReplacements = input.split("\n\n")[0].lines().map { Replacement.parseReverse(it) }
-        val molecule = input.split("\n\n")[1]
+        val reverseReplacements = inputString.split("\n\n")[0].lines().map { Replacement.parseReverse(it) }
+        val molecule = inputString.split("\n\n")[1]
 
         val levels = mutableListOf<Int>()
 
@@ -45,7 +43,7 @@ class Day19(private val input: String) : Day() {
     }
 
     public fun alternativePart2(): Int {
-        val molecule = input.split("\n\n")[1]
+        val molecule = inputString.split("\n\n")[1]
         return molecule.count { it.isUpperCase() } - molecule.count("Rn") - molecule.count("Ar") - 2 * molecule.count("Y") - 1
     }
 

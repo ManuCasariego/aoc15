@@ -2,7 +2,7 @@ package day16
 
 import Day
 
-class Day16(private val input: String) : Day() {
+class Day16 : Day(16) {
     override fun part1(): Int {
         val sueThings = mapOf(
             "children" to 3,
@@ -16,7 +16,7 @@ class Day16(private val input: String) : Day() {
             "cars" to 2,
             "perfumes" to 1
         )
-        var suesList = input.lines().map { Sue.builder(it) }
+        var suesList = inputLines.map { Sue.builder(it) }
         for (sueThingEntry in sueThings.entries) {
             suesList = suesList.filter { it.contains(sueThingEntry.key, sueThingEntry.value) }
         }
@@ -25,9 +25,6 @@ class Day16(private val input: String) : Day() {
     }
 
     override fun part2(): Int {
-//        In particular, the cats and trees readings indicates that there are greater than that many (due to the unpredictable nuclear decay of cat dander and tree pollen), while the pomeranians and goldfish readings indicate that there are fewer than that many (due to the modial interaction of magnetoreluctance).
-
-//        What is the number of the real Aunt Sue?
         val sueThings = mapOf(
             "children" to 3,
             "samoyeds" to 2,
@@ -44,7 +41,7 @@ class Day16(private val input: String) : Day() {
             "pomeranians" to 3,
             "goldfish" to 5,
         )
-        var suesList = input.lines().map { Sue.builder(it) }
+        var suesList = inputLines.map { Sue.builder(it) }
         for (sueThingEntry in sueThings.entries) {
             suesList = suesList.filter { it.contains(sueThingEntry.key, sueThingEntry.value) }
         }

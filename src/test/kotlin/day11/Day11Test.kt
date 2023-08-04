@@ -7,8 +7,8 @@ import kotlin.test.assertEquals
 
 
 class Day11Test : DayTest() {
-    private val exampleDay = Day11("11".readTestInput())
-    private val day = Day11("11".readInput())
+    private val exampleDay = Day11()
+    private val day = Day11()
 
     @Test
     fun testSolvePart1WithExampleInput() {

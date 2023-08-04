@@ -3,9 +3,9 @@ package day02
 import Day
 import kotlin.math.min
 
-class Day02(private val input: String) : Day() {
+class Day02 : Day(2) {
     override fun part1(): Int {
-        return input.lines().sumOf { line ->
+        return inputLines.sumOf { line ->
             val (l, w, h) = line.split('x').map { it.toInt() }
             val first = 2 * l * w
             val second = 2 * l * h
@@ -15,7 +15,7 @@ class Day02(private val input: String) : Day() {
     }
 
     override fun part2(): Int {
-        return input.lines().sumOf { line ->
+        return inputLines.sumOf { line ->
             val (l, w, h) = line.split('x').map { it.toInt() }
             val bow = l * w * h
             val first = 2 * (l + w)

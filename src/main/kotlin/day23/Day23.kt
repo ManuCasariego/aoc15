@@ -2,7 +2,7 @@ package day23
 
 import Day
 
-class Day23(private val input: String) : Day() {
+class Day23 : Day(23) {
     override fun part1(): Int {
         TODO("Not yet implemented")
     }

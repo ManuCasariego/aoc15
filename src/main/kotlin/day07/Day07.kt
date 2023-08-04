@@ -6,25 +6,25 @@ import kotlin.collections.Map
 import kotlin.math.abs
 import kotlin.math.pow
 
-class Day07(private val input: String) : Day() {
+class Day07 : Day(7) {
 
     override fun part1(): Int {
-        return buildMapForSignalAndReturnA(input)
+        return buildMapForSignalAndReturnA(inputString)
     }
 
     override fun part2(): Int {
-        val firstA = buildMapForSignalAndReturnA(input)
-        return buildMapForSignalAndReturnA(input, initialValueForB = firstA)
+        val firstA = buildMapForSignalAndReturnA(inputString)
+        return buildMapForSignalAndReturnA(inputString, initialValueForB = firstA)
     }
 
     private fun buildMapForSignalAndReturnA(
-        input: String,
+        inputString: String,
         initialValueForB: Int? = null,
         signal: String = "a",
     ): Int {
         val signalMap = mutableMapOf<String, Signal>()
         if (initialValueForB != null) signalMap["b"] = Signal.builder(initialValueForB)
-        val instructionMap = buildInstructionMap(input)
+        val instructionMap = buildInstructionMap(inputString)
         val instructionStack = Stack<String>()
         instructionStack.push(instructionMap[signal])
         while (instructionStack.isNotEmpty()) {
@@ -80,9 +80,9 @@ class Day07(private val input: String) : Day() {
         return signalMap["a"]!!.toInt()
     }
 
-    private fun buildInstructionMap(input: String): MutableMap<String, String> {
+    private fun buildInstructionMap(inputString: String): MutableMap<String, String> {
         val instructionMap = mutableMapOf<String, String>()
-        input.lines().forEach {
+        inputString.lines().forEach {
             val split = it.split(" ")
             instructionMap[split.last()] = it
         }

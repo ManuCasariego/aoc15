@@ -2,11 +2,11 @@ package day13
 
 import Day
 
-class Day13(private val input: String) : Day() {
+class Day13 : Day(13) {
     override fun part1(): Int {
         // David would gain 48 happiness units by sitting next to Carol.
         // David would lose 65 happiness units by sitting next to Eric.
-        val relationships = input.lines().map { Relationship.builder(it) }
+        val relationships = inputLines.map { Relationship.builder(it) }
         var people = relationships.map { it.person1 }.distinct()
         // brute force
         var maxMaxHappiness = 0
@@ -28,7 +28,7 @@ class Day13(private val input: String) : Day() {
     }
 
     override fun part2(): Int {
-        val relationships = input.lines().map { Relationship.builder(it) }.toMutableList()
+        val relationships = inputLines.map { Relationship.builder(it) }.toMutableList()
 
         var people = relationships.map { it.person1 }.distinct().toMutableList()
         for (person in people) {

@@ -2,7 +2,7 @@ package day03
 
 import Day
 
-class Day03(private val input: String) : Day() {
+class Day03 : Day(3) {
 
     data class Point(val x: Int, val y: Int)
 
@@ -10,7 +10,7 @@ class Day03(private val input: String) : Day() {
         val houses = mutableSetOf<Point>()
         var (currentX, currentY) = listOf(0, 0)
         houses.add(Point(currentX, currentY))
-        input.forEach { c: Char ->
+        inputString.forEach { c: Char ->
             when (c) {
                 '>' -> currentX += 1
                 '<' -> currentX -= 1
@@ -28,7 +28,7 @@ class Day03(private val input: String) : Day() {
         var (currentDoggyX, currentDoggyY) = listOf(0, 0)
         houses.add(Point(currentSantaX, currentSantaY))
         var santaTurn = true
-        input.forEach { c: Char ->
+        inputString.forEach { c: Char ->
             if (c == '>') if (santaTurn) currentSantaX++ else currentDoggyX++
             else if (c == '<') if (santaTurn) currentSantaX-- else currentDoggyX--
             else if (c == 'v') if (santaTurn) currentSantaY-- else currentDoggyY--

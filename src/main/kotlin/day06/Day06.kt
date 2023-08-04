@@ -3,19 +3,19 @@ package day06
 import Day
 import kotlin.math.max
 
-class Day06(private val input: String) : Day() {
+class Day06 : Day(6) {
 
     override fun part1(): Int {
         val (sizeX, sizeY) = listOf(1000, 1000)
         val board = Board(Array(sizeX) { Array(sizeY) { false } })
-        input.lines().map(Instruction.Companion::parse).forEach(board::execute)
+        inputLines.map(Instruction.Companion::parse).forEach(board::execute)
         return board.howManyLightsOn()
     }
 
     override fun part2(): Int {
         val (sizeX, sizeY) = listOf(1000, 1000)
         val board = BoardPart2(Array(sizeX) { Array(sizeY) { 0 } })
-        input.lines().map(Instruction.Companion::parse).forEach(board::execute)
+        inputLines.map(Instruction.Companion::parse).forEach(board::execute)
         return board.howManyLightsOn()
     }
 

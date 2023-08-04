@@ -2,15 +2,15 @@ package day01
 
 import Day
 
-class Day01(private val input: String) : Day() {
+class Day01(test: Boolean = false) : Day(1, test) {
     override fun part1(): Int {
-        return input.map { if (it == '(') 1 else if (it == ')') -1 else 0 }.sum()
+        return inputString.map { if (it == '(') 1 else if (it == ')') -1 else 0 }.sum()
     }
 
     override fun part2(): Int {
         var position = 1
         var level = 0
-        input.forEach { char ->
+        inputString.forEach { char ->
             if (char == '(') {
                 level++
             } else if (char == ')') {

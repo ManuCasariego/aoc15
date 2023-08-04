@@ -3,13 +3,13 @@ package day12
 import Day
 import kotlin.streams.asStream
 
-class Day12(private val input: String) : Day() {
+class Day12 : Day(12) {
     override fun part1(): Int {
-        return getSumFromJson(input)
+        return getSumFromJson(inputString)
     }
 
     override fun part2(): Int {
-        var variableInput = input
+        var variableInput = inputString
         while (variableInput.contains(":\"red\"")) {
             val r = variableInput.indexOf(":\"red\"")
             // I need to find an opening key going left

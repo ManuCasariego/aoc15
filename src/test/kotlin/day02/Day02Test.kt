@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test
 
 
 class Day02Test : DayTest() {
-    private val exampleDay = Day02("02".readTestInput())
-    private val day = Day02("02".readInput())
+    private val exampleDay = Day02()
+    private val day = Day02()
 
     @Test
     fun testSolvePart1WithExampleInput() {

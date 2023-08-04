@@ -2,13 +2,29 @@ package day11
 
 import Day
 
-class Day11(private val input: String) : Day() {
+class Day11 : Day(11) {
     override fun part1(): Int {
         TODO("Not yet implemented")
     }
 
     fun part1String(): String {
-        val password = Password.builder(input)
+        val password = Password.builder(inputString)
+        while (!validPassword(password)) {
+            password.add()
+        }
+        return password.toString()
+    }
+
+    override fun part2(): Int {
+        TODO("Not yet implemented")
+    }
+
+    fun part2String(): String {
+        val password = Password.builder(inputString)
+        while (!validPassword(password)) {
+            password.add()
+        }
+        password.add()
         while (!validPassword(password)) {
             password.add()
         }
@@ -101,22 +117,5 @@ class Day11(private val input: String) : Day() {
                 return Password(array)
             }
         }
-    }
-
-    override fun part2(): Int {
-        TODO("Not yet implemented")
-    }
-
-
-    fun part2String(): String {
-        val password = Password.builder(input)
-        while (!validPassword(password)) {
-            password.add()
-        }
-        password.add()
-        while (!validPassword(password)) {
-            password.add()
-        }
-        return password.toString()
     }
 }

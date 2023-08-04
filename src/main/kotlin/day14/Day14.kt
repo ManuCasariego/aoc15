@@ -2,9 +2,9 @@ package day14
 
 import Day
 
-class Day14(private val input: String) : Day() {
+class Day14 : Day(14) {
     override fun part1(): Int {
-        val reindeers = input.lines().map { Reindeer.builder(it) }
+        val reindeers = inputLines.map { Reindeer.builder(it) }
         var maxDistance = 0
         val distanceAfter = 2503
         for (reindeer in reindeers) {
@@ -14,7 +14,7 @@ class Day14(private val input: String) : Day() {
     }
 
     override fun part2(): Int {
-        val reindeers = input.lines().map { Reindeer.builder(it) }
+        val reindeers = inputLines.map { Reindeer.builder(it) }
         val distanceAfter = 2503
         val points = mutableMapOf<String, Int>()
         for (reindeer in reindeers) {

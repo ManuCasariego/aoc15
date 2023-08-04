@@ -2,11 +2,11 @@ package day08
 
 import Day
 
-class Day08(private val input: String) : Day() {
+class Day08 : Day(8) {
     override fun part1(): Int {
         var totalChars = 0
         var totalEscapedChars = 0
-        input.lines().forEach {
+        inputLines.forEach {
             totalChars += it.length
             var escapedString = it.subSequence(1, it.length - 1).replace(regex = Regex("\\\\\\\""), replacement = "\"")
                 .replace(regex = "\\\\\\\\".toRegex(), replacement = "\\\\")
@@ -19,7 +19,7 @@ class Day08(private val input: String) : Day() {
     override fun part2(): Int {
         var totalChars = 0
         var totalEscapedChars = 0
-        input.lines().forEach {
+        inputLines.forEach {
             totalChars += it.length
             val escapedString = it.replace(regex = Regex("\\\\"), replacement = "oo")
                 .replace(regex = "\\\"".toRegex(), replacement = "oo")

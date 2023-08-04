@@ -2,7 +2,7 @@ package day21
 
 import Day
 
-class Day21(private val input: String) : Day() {
+class Day21 : Day(21) {
 
     override fun part1(): Int {
         return buildStateMap().filter { it.value }.minOf { it.key.sumOf { item -> item.cost } }
@@ -64,7 +64,7 @@ class Day21(private val input: String) : Day() {
                     "Defense +3   80     0       3"
         )
 
-        val boss = Character.parse(input)
+        val boss = Character.parse(inputString)
         val player = Character(100, 0, 0)
         for (weapon in weapons) {
             for (ringSet in getRingPermutations(rings)) {

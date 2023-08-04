@@ -2,16 +2,27 @@ package day17
 
 import Day
 
-class Day17(private val input: String) : Day() {
+class Day17 : Day(17) {
     override fun part1(): Int {
         stateMap = mutableMapOf()
         usedContainers = mutableSetOf()
 
         var i = 0
-        val containers = input.lines().map { Container(i++, it.toInt()) }.toSet()
+        val containers = inputLines.map { Container(i++, it.toInt()) }.toSet()
         magic(150, containers)
         return usedContainers.size
+    }
 
+    override fun part2(): Int {
+        stateMap = mutableMapOf()
+        usedContainers = mutableSetOf()
+
+        var i = 0
+        val containers = inputLines.map { Container(i++, it.toInt()) }.toSet()
+        magic(150, containers)
+
+        val leastAmountOfContainersUsed = usedContainers.maxOf { it.size }
+        return usedContainers.count { it.size == leastAmountOfContainersUsed }
     }
 
     data class State(val goal: Int, val availableContainers: Set<Container>)
@@ -42,16 +53,4 @@ class Day17(private val input: String) : Day() {
     }
 
     data class Container(val index: Int, val quantity: Int)
-
-    override fun part2(): Int {
-        stateMap = mutableMapOf()
-        usedContainers = mutableSetOf()
-
-        var i = 0
-        val containers = input.lines().map { Container(i++, it.toInt()) }.toSet()
-        magic(150, containers)
-
-        val leastAmountOfContainersUsed = usedContainers.maxOf { it.size }
-        return usedContainers.count { it.size == leastAmountOfContainersUsed }
-    }
 }

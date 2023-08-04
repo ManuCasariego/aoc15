@@ -2,13 +2,13 @@ package day09
 
 import Day
 
-class Day09(private val input: String) : Day() {
+class Day09 : Day(9) {
 
     override fun part1(): Int {
         cleanUp()
         // dp
         // getting the distances and cities
-        input.lines().forEach {
+        inputLines.forEach {
             val split = it.split(" ")
             distances.add(Distance(split[0], split[2], split[4].toInt()))
             cities.add(split[0])
@@ -23,7 +23,7 @@ class Day09(private val input: String) : Day() {
 
     override fun part2(): Int {
         cleanUp()
-        input.lines().forEach {
+        inputLines.forEach {
             val split = it.split(" ")
             distances.add(Distance(split[0], split[2], split[4].toInt()))
             cities.add(split[0])

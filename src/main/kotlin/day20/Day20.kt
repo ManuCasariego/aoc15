@@ -3,9 +3,9 @@ package day20
 import Day
 import kotlin.math.sqrt
 
-class Day20(private val input: String) : Day() {
+class Day20 : Day(20) {
     override fun part1(): Int {
-        val goal = input.lines().first().toInt()
+        val goal = inputLines.first().toInt()
         var i = (goal / 43)
         while (i < goal / 10) {
             val giftsForHouse = getDivisors(i).sum() * 10
@@ -16,7 +16,7 @@ class Day20(private val input: String) : Day() {
     }
 
     override fun part2(): Int {
-        val goal = input.lines().first().toInt()
+        val goal = inputLines.first().toInt()
         var i = (goal / 43)
         while (i < goal / 11) {
             val giftsForHouse = getDivisorsPart2(i).sum() * 11

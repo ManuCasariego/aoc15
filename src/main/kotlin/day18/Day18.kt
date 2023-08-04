@@ -2,9 +2,9 @@ package day18
 
 import Day
 
-class Day18(private val input: String) : Day() {
+class Day18 : Day(18) {
     override fun part1(): Int {
-        var board = input.lines().map { it.map { c -> c == '#' }.toMutableList() }.toMutableList()
+        var board = inputLines.map { it.map { c -> c == '#' }.toMutableList() }.toMutableList()
         for (i in 1..100) {
             board = nextStep(board)
         }
@@ -12,7 +12,7 @@ class Day18(private val input: String) : Day() {
     }
 
     override fun part2(): Int {
-        var board = input.lines().map { it.map { c -> c == '#' }.toMutableList() }.toMutableList()
+        var board = inputLines.map { it.map { c -> c == '#' }.toMutableList() }.toMutableList()
         for (i in 1..100) {
             board[0][0] = true
             board[99][0] = true

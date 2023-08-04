@@ -2,9 +2,9 @@ package day05
 
 import Day
 
-class Day05(private val input: String) : Day() {
+class Day05 : Day(5) {
     override fun part1(): Int {
-        return input.lines().filter(::isNicePart1).size
+        return inputLines.filter(::isNicePart1).size
     }
 
     private fun isNicePart1(name: String): Boolean {
@@ -25,7 +25,7 @@ class Day05(private val input: String) : Day() {
     }
 
     override fun part2(): Int {
-        return input.lines().filter(::isNicePart2).size
+        return inputLines.filter(::isNicePart2).size
     }
 
     data class CharPair(val a: Char, val b: Char)
