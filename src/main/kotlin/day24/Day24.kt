@@ -11,8 +11,8 @@ class Day24(private val input: String) : Day() {
         return 0
     }
 
-    private fun calculatePermutationsValues(list: List<Int>, n: Int): List<List<Int>> {
-        return calculatePermutationsIndex(list.size, n).map { innerList -> innerList.map { list[it] } }
+    override fun part2(): Int {
+        return 0
     }
 
     fun part2Long(): Long {
@@ -31,6 +31,10 @@ class Day24(private val input: String) : Day() {
         return -1
     }
 
+    private fun calculatePermutationsValues(list: List<Int>, n: Int): List<List<Int>> {
+        return calculatePermutationsIndex(list.size, n).map { innerList -> innerList.map { list[it] } }
+    }
+
     private fun calculatePermutationsIndex(listLength: Int, n: Int): List<List<Int>> {
         val permutations = mutableListOf<MutableList<Int>>()
         var previous = if (n != 1) calculatePermutationsIndex(listLength, n - 1) else mutableListOf(mutableListOf())
@@ -45,7 +49,4 @@ class Day24(private val input: String) : Day() {
         return permutations
     }
 
-    override fun part2(): Int {
-        TODO("Not yet implemented")
-    }
 }
